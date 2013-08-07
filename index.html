@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="en-GB">
+
+<head>
+
+<meta charset="utf-8" />
+    
+<title>irl :: interwebs reading list</title>
+    
+<meta name="description" content="A simple script for managing a reading-list of URLs in Dropbox." />
+    
+<link rel="icon" href="favicon.ico" />
+    
+<link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,400,700' rel='stylesheet' type='text/css' />
+    
+<style>
+
+html {
+    color:              #555;
+    font-family:        Vollkorn,
+                        serif;
+    line-height:        1.5;
+}
+
+@media (min-width: 60em) {
+
+    html {
+        font-size:      125%;
+    }
+
+}
+
+body {
+    margin:             0 auto 2em;
+    max-width:          768px;
+    padding:            2em;
+}
+
+header {
+    border-bottom:      3px double #aaa;
+    margin-bottom:      4em;
+    text-align:         center;
+}
+
+h1, h2 {
+    color:              #222;
+    line-height:        1.2;
+}
+
+code {
+    color:              red;
+    font-family:        courier,
+                        monospace;
+}
+
+pre {
+    font-size:          0.85em;
+    padding:            0 2em;
+    overflow-x:         scroll;
+}
+
+.button {
+    background-color:   purple;
+    border-radius:      0.25em;
+    color:              white;
+    display:            inline-block;
+    font-family:        courier,
+                        monospace;
+    height:             4em;
+    margin-bottom:      1em;
+    margin-right:       1em;
+    line-height:        4em;
+    width:              7em;
+    text-decoration:    none;
+    
+    -webkit-transition: 1.5s background-color;
+    -moz-transition:    1.5s background-color;
+    transition:         1.5s background-color;
+}
+
+.button:hover {
+    background-color:   red;
+    
+    -webkit-transition: 0.2s background-color;
+    -moz-transition:    0.2s background-color;
+    transition:         0.2s background-color;
+}
+
+.b {
+    color:              blue;
+}
+
+.r {
+    color:              red;
+}
+
+.p {
+    color:              purple;
+}
+
+</style>
+
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-30693166-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1><code><span class="b">i</span><span class="r">r</span><span class="p">l</span></code><small> :: interwebs reading list</small></h1>
+
+<p><em>tpo-a001-1.0.0</em></p>
+
+<p>A simple script for managing a reading-list of URLs in Dropbox.</p>
+
+<p><a class="button" href="https://github.com/dmrutherford/shoestring/archive/master.zip">download</a>
+
+<a class="button" href="https://github.com/dmrutherford/irl">fork</a></p>
+
+</header>
+
+<p>I always find myself with far too many browser tabs open, and my various desktops covered with links I never get around to following. <code>irl</code> is an attempt to deal with that problem.</p>
+
+<p>It's just a <code>bash</code> script cobbling together a bunch of mostly standard programs, so it should work anywhere *nix-y. I've tested on Linux and OS X, but not on Cygwin.</p>
+
+<h2>Using irl</h2>
+
+<p>There's nothing much to it:</p>
+
+<pre><code>irl -i               initialise irl
+    -l               show current reading list (default)
+    -o [item no.]    open specified item in browser
+    -a [url]         add an item to the reading list
+    -r [item no.]    remove specified item from the reading list
+    -y               show the archive
+    -v [item no.]    open the specified archived item
+    -p               purge archive
+    -h               show available commands
+</code></pre>
+
+<p>By default, <code>irl</code> initialises itself in a subfolder of Dropbox named <code>.irl</code>. If you don't use Dropbox, or you just don't want <code>irl</code> to save your links there, then you can simply change the relevant path in the script. The variables are right at the top.</p>
+
+<p>If you want to use <code>irl</code> to manage lists of stuff other than URLs, go hog wild.</p>
+
+<p><code>irl</code> will maintain a handy archive of every link you've ever entered into it. It would have been really simple to make it simultaneously add links to the main list and the archive, but I decided to go the more finicky route of adding links to the archive only when they are removed from the main list. You can view the archive with <code>-y</code>, open links from the archive with <code>-v</code>, and purge the archive with <code>-p</code>. By purge I literally mean purge: it will wipe it out, irrevocably, and leave you with a blank slate. If you want more fine-grained control, then tough cheddar. Although since everything is just stored in plain text files, you can just edit it with <code>nano</code> or whatever anyway. So yeah.</p>
+
+<h2>Gotchas</h2>
+
+<ol>
+<li><p><strong>Check your Dropbox path</strong></p>
+
+<p>IIRC, Dropbox normally creates its folder under the <code>Documents</code> folder. Since most of the things I keep in Dropbox are not 'documents', and I like to keep my paths as short as is sensibly possible, I keep my Dropbox folder immediately under my home folder.</p>
+
+<p>If you use the default Dropbox location, you'll need to tweak the appropriate path. Again, it's right at the top of the script.</p></li>
+<li><p><strong>Automatic copying may not work</strong></p>
+
+<p>If you don't pass any arguments to <code>irl</code> with the command <code>-a</code>, it will attempt to add whatever is on your clipboard. On OS X, this uses <code>pbpaste</code>, and definitely works. On Linux, it will try either <code>xclip</code> or <code>xsel</code>. I haven't actually tested with either, so who knows if that works.</p>
+
+<p>Additionally, I haven't checked what happens if the contents of the clipboard are not a chunck of text. Sue me.</p></li>
+</ol>
+
+<h2>Wishlist</h2>
+
+<p>At some point I will get around to allowing multiple links to be added simultaneously using <code>irl -a</code>. Probably quite soon, as this is an obvious feature that I should have included from the start.</p>
+
+<p>I am vaguely considering implementing some sort of regex to check that what you're entering does actually resemble a URL. There are two things holding me back:</p>
+
+<ol>
+<li>Regex. Ugh.</li>
+<li>If you want to use <code>irl</code> to manage lists of things other than URLs, it would be a little frustrating if it refused to manage anything other than URLs.</li>
+</ol>
+
+<p>If I ever do implement this -- and I almost certainly won't -- it will probably only be applied to clipboard contents when running <code>irl -a</code> without any arguments. Even then it could get annoying, so we'll see...</p>
+
+<p>At the moment, <code>irl</code> uses <code>getopts</code> to parse commands. It took me a surprisingly long time to notice that this is <em>not</em> the same as using <code>getopt</code>. I'd prefer to use <code>getopt</code>, since it's a little more versatile, but I have never got it to play nice on OS X. Since I need <code>irl</code> to support both Linux and OS X, <code>getopts</code> it is.</p>
+
+<h2>Copyright &amp; Contact</h2>
+
+<p>Consider <code>irl</code> public domain. It's not exactly sophisticated, so there's not much to patent anyway. Although these days that hardly seems to be a stumbling block.</p>
+
+<p>Comments, complaints and constructive criticisms to <a href="mailto:david@dmrutherford.com">david@dmrutherford.com</a>, or <a href="https://twitter.com/DMRutherford">hit me up on Twitter</a>.</p>
+
+</body>
+
+</html>
