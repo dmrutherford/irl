@@ -43,8 +43,11 @@ header {
     text-align:         center;
 }
 
-h1, h2 {
+h1, h2, strong {
     color:              #222;
+}
+
+h1, h2, {
     line-height:        1.2;
 }
 
@@ -155,7 +158,9 @@ pre {
 
 <p>If you want to use <code>irl</code> to manage lists of stuff other than URLs, go hog wild.</p>
 
-<p><code>irl</code> will maintain a handy archive of every link you've ever entered into it. It would have been really simple to make it simultaneously add links to the main list and the archive, but I decided to go the more finicky route of adding links to the archive only when they are removed from the main list. You can view the archive with <code>-y</code>, open links from the archive with <code>-v</code>, and purge the archive with <code>-p</code>. By purge I literally mean purge: it will wipe it out, irrevocably, and leave you with a blank slate. If you want more fine-grained control, then tough cheddar. Although since everything is just stored in plain text files, you can just edit it with <code>nano</code> or whatever anyway. So yeah.</p>
+<p><code>irl</code> will maintain a handy archive of every link you've ever entered into it. It would have been really simple to make it simultaneously add links to the main list and the archive, but I decided to go the more finicky route of adding links to the archive only when they are removed from the main list.</p>
+
+<p>You can view the archive with <code>-y</code>, open links from the archive with <code>-v</code>, and purge the archive with <code>-p</code>. By purge I literally mean purge: it will wipe it out, irrevocably, and leave you with a blank slate. If you want more fine-grained control, then tough cheddar. Although since everything is stored in plain text files, you can just edit it with <code>nano</code> or whatever anyway. So yeah.</p>
 
 <h2>Gotchas</h2>
 
@@ -183,7 +188,7 @@ pre {
 <li>If you want to use <code>irl</code> to manage lists of things other than URLs, it would be a little frustrating if it refused to manage anything other than URLs.</li>
 </ol>
 
-<p>If I ever do implement this -- and I almost certainly won't -- it will probably only be applied to clipboard contents when running <code>irl -a</code> without any arguments. Even then it could get annoying, so we'll see...</p>
+<p>If I ever do implement this &ndash; and I almost certainly won't &ndash; it will probably only be applied to clipboard contents when running <code>irl -a</code> without any arguments. Even then it could get annoying, so we'll see...</p>
 
 <p>At the moment, <code>irl</code> uses <code>getopts</code> to parse commands. It took me a surprisingly long time to notice that this is <em>not</em> the same as using <code>getopt</code>. I'd prefer to use <code>getopt</code>, since it's a little more versatile, but I have never got it to play nice on OS X. Since I need <code>irl</code> to support both Linux and OS X, <code>getopts</code> it is.</p>
 
