@@ -66,6 +66,8 @@ If I ever do implement this -- and I almost certainly won't -- it will probably 
 
 At the moment, `irl` uses `getopts` to parse commands. It took me a surprisingly long time to notice that this is *not* the same as using `getopt`. I'd prefer to use `getopt`, since it's a little more versatile, but I have never got it to play nice on OS X. Since I need `irl` to support both Linux and OS X, `getopts` it is.
 
+At some point I'll also try and get it set up to display page titles rather than URLs, using a parallel semi-parsed list. That could be fun.
+
 
 Copyright & Contact
 -------------------
